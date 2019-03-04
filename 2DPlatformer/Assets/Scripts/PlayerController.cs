@@ -6,20 +6,20 @@ using UnityEngine.Experimental.PlayerLoop;
 
 public class PlayerController : MonoBehaviour
 {
-
-    private Rigidbody2D rb;
+	private Rigidbody2D rb;
+	[Header("Movement")]
     public float speed;
-    public float jumpForce;
     private float moveInput;
-
-    private bool isGrounded;
-    public Transform feetPos;
-    public float checkRadius;
-    public LayerMask whatIsGround;
-
-    private float jumpTimeCounter;
+	[Header("Ground Checking")]
+	public Transform feetPos;
+	public float checkRadius;
+	public LayerMask whatIsGround;
+	private bool isGrounded;
+	[Header("Jump Variables")]
+	public float jumpForce;
     public float jumpTime;
-    private bool isJumping;
+	private float jumpTimeCounter;
+	[Obsolete] private bool isJumping;
 
     void Start()
     {
@@ -30,15 +30,11 @@ public class PlayerController : MonoBehaviour
     {
         SetPlayerDirection();
         MovePlayerHorizontal();
-
-        
     }
 
     void Update()
     {
         ProcessInput();
-        
-
     }
 
     private void MovePlayerHorizontal()
@@ -62,76 +58,69 @@ public class PlayerController : MonoBehaviour
 
 
     }
+	#region JumpPlayer
+	[Obsolete]
+	private void JumpPlayer()
+	{
+		isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
 
-    private void JumpPlayer()
-    {
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
+		if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
+		{
+			isJumping = true;
+			rb.velocity = Vector2.up * jumpForce;
+			jumpTimeCounter = jumpTime;
+		}
 
-        if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
-        {
-            isJumping = true;
-            rb.velocity = Vector2.up * jumpForce;
-            jumpTimeCounter = jumpTime;
-        }
+		if (Input.GetKey(KeyCode.Space) && isJumping == true)
+		{
 
-        if (Input.GetKey(KeyCode.Space) && isJumping == true)
-        {
+			if (jumpTimeCounter > 0)
+			{
+				rb.velocity = Vector2.up * jumpForce;
+				jumpTimeCounter -= Time.deltaTime;
+			}
+			else
+			{
+				isJumping = false;
+			}
+		}
 
-            if (jumpTimeCounter > 0)
-            {
-                rb.velocity = Vector2.up * jumpForce;
-                jumpTimeCounter -= Time.deltaTime;
-            }
-            else
-            {
-                isJumping = false;
-            }
-        }
+		if (Input.GetKeyUp(KeyCode.Space))
+		{
+			isJumping = false;
+		}
+	} 
+	#endregion
 
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            isJumping = false;
-        }
-    }
-
-    private void ProcessInput()
+	private void ProcessInput()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
-        JumpPlayer();
+        Jump();
     }
-
+	
     private void Jump()
     {
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
 
         // If is ground is true and jump button is pressed, initiate jump
-        if (isGrounded == true && Input.GetAxis("Jump") > 0)
+        if (isGrounded && Input.GetButtonDown("Jump"))
         {
-            isJumping = true;
             rb.velocity = Vector2.up * jumpForce;
             jumpTimeCounter = jumpTime;
+			return;
         }
-
-        // If player is pressing and jump while is already jumping, initiate Bigger jump
-        if (Input.GetAxisRaw("Jump") > 0 && isJumping == true)
-        {
-            if (jumpTimeCounter > 0)
-            {
-                rb.velocity = Vector2.up * jumpForce;
-                jumpTimeCounter -= Time.deltaTime;
-            }
-            else
-            {
-                isJumping = false;
-            }
-        }
-
-        // If player is not pressing jump, set isJump to false
-        if (Input.GetAxisRaw("Jump") < 1)
-        {
-            isJumping = false;
-        }
-
-        Debug.Log("Jump Axis = " + Input.GetAxisRaw("Jump"));
+		// If is on the ground, has jump time and is pressing space
+		if (!isGrounded && jumpTimeCounter > 0 && Input.GetButton("Jump"))
+		{
+			rb.velocity = Vector2.up * jumpForce;
+			jumpTimeCounter -= Time.deltaTime;
+			return;
+		}
+		// Not pressing jump anymore
+		if (Input.GetButtonUp("Jump"))
+		{
+			jumpTimeCounter = 0;
+		}
+        //Debug.Log("Jump Axis = " + Input.GetAxisRaw("Jump"));
     }
 }
