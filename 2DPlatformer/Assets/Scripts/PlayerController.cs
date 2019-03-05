@@ -21,21 +21,27 @@ public class PlayerController : MonoBehaviour
 	private float jumpTimeCounter;
     public int jumps = 2;
     private int jumpCounter;
+    private float gravityScaleDefault;
+
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        gravityScaleDefault = rb.gravityScale;
     }
 
     void FixedUpdate()
     {
         SetPlayerDirection();
         MovePlayerHorizontal();
+        SetGravityScale();
     }
 
     void Update()
     {
         ProcessInput();
+        CheckIsPlayerGrounded();
     }
 
     private void MovePlayerHorizontal()
@@ -75,7 +81,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
         // On jump, take one jumpCounter and refil jump time
         // If on ground, refill jumps first
         if (Input.GetButtonDown("Jump"))
@@ -92,6 +97,30 @@ public class PlayerController : MonoBehaviour
         {
             jumpTimeCounter -= Time.deltaTime;
             rb.velocity = Vector2.up * jumpForce;
+        }
+
+        // Increase gravity when descending
+        // If player Y velocity is below 0
+        if (rb.velocity.y > 0)
+        {
+            // Increase gravity by .1
+            rb.gravityScale += 0.25f;
+        }
+        
+        
+    }
+
+    private void CheckIsPlayerGrounded()
+    {
+        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
+    }
+
+    private void SetGravityScale()
+    {
+        // If player is not jumping or just landed, reset gravity
+        if (isGrounded)
+        {
+            rb.gravityScale = gravityScaleDefault;
         }
     }
 }
