@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
 	public float jumpForce;
     public float jumpTime;
 	private float jumpTimeCounter;
-	[Obsolete] private bool isJumping;
+    public int jumps = 2;
+    private int jumpCounter;
 
     void Start()
     {
@@ -58,69 +59,39 @@ public class PlayerController : MonoBehaviour
 
 
     }
-	#region JumpPlayer
-	[Obsolete]
-	private void JumpPlayer()
-	{
-		isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
-
-		if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
-		{
-			isJumping = true;
-			rb.velocity = Vector2.up * jumpForce;
-			jumpTimeCounter = jumpTime;
-		}
-
-		if (Input.GetKey(KeyCode.Space) && isJumping == true)
-		{
-
-			if (jumpTimeCounter > 0)
-			{
-				rb.velocity = Vector2.up * jumpForce;
-				jumpTimeCounter -= Time.deltaTime;
-			}
-			else
-			{
-				isJumping = false;
-			}
-		}
-
-		if (Input.GetKeyUp(KeyCode.Space))
-		{
-			isJumping = false;
-		}
-	} 
-	#endregion
-
+	
 	private void ProcessInput()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
         Jump();
     }
-	
+    
     private void Jump()
     {
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
-
-        // If is ground is true and jump button is pressed, initiate jump
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        // If the jump button isn't down this function does nothing, return
+        if (!Input.GetButton("Jump"))
         {
-            rb.velocity = Vector2.up * jumpForce;
-            jumpTimeCounter = jumpTime;
-			return;
+            jumpTimeCounter = 0f;
+            return;
         }
-		// If is on the ground, has jump time and is pressing space
-		if (!isGrounded && jumpTimeCounter > 0 && Input.GetButton("Jump"))
-		{
-			rb.velocity = Vector2.up * jumpForce;
-			jumpTimeCounter -= Time.deltaTime;
-			return;
-		}
-		// Not pressing jump anymore
-		if (Input.GetButtonUp("Jump"))
-		{
-			jumpTimeCounter = 0;
-		}
-        //Debug.Log("Jump Axis = " + Input.GetAxisRaw("Jump"));
+
+        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
+        // On jump, take one jumpCounter and refil jump time
+        // If on ground, refill jumps first
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (isGrounded)
+            {
+                jumpCounter = jumps;
+            }
+            jumpCounter--;
+            jumpTimeCounter = jumpTime;
+        }
+        // If there's jump time left and there are spare jumps, continue adding force
+        if (jumpTimeCounter > 0 && jumpCounter >= 0)
+        {
+            jumpTimeCounter -= Time.deltaTime;
+            rb.velocity = Vector2.up * jumpForce;
+        }
     }
 }
