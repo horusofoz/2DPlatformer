@@ -118,7 +118,6 @@ public class PlayerController : MonoBehaviour
     {
         ProcessInput();
         CheckIsPlayerGrounded();
-        Debug.Log(attackInput);
     }
 
     private void MovePlayerHorizontal()

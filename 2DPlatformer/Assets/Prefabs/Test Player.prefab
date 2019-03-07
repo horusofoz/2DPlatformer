@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4821622294272246}
   - component: {fileID: 61723831674269944}
+  - component: {fileID: 114651136854572516}
   m_Layer: 0
   m_Name: AttackCollider
   m_TagString: Untagged
@@ -82,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1785598343351488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.99, y: 2.0149999, z: 0}
+  m_LocalPosition: {x: -12.99, y: 4.03, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 4266422880175130}
@@ -160,7 +161,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 8.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -191,6 +192,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114651136854572516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1730397336827014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e508009f97f19544bb81d5b1380dced5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114790356849274862
 MonoBehaviour:
   m_ObjectHideFlags: 1

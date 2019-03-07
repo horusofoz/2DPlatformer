@@ -331,65 +331,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 61723831674269944, guid: 8300d8af93fd44649af43a734d79e28f,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 61723831674269944, guid: 8300d8af93fd44649af43a734d79e28f,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 61723831674269944, guid: 8300d8af93fd44649af43a734d79e28f,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1730397336827014, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000,
-        type: 0}
-    - target: {fileID: 61723831674269944, guid: 8300d8af93fd44649af43a734d79e28f,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 61723831674269944, guid: 8300d8af93fd44649af43a734d79e28f,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: 8.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 61596899886455682, guid: 8300d8af93fd44649af43a734d79e28f,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.pivot.x
-      value: 0.44444445
-      objectReference: {fileID: 0}
-    - target: {fileID: 61596899886455682, guid: 8300d8af93fd44649af43a734d79e28f,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.18
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1624331262 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1730397336827014, guid: 8300d8af93fd44649af43a734d79e28f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1624331261}
---- !u!114 &1624331263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1624331262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e508009f97f19544bb81d5b1380dced5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1785149528
 GameObject:
   m_ObjectHideFlags: 0
