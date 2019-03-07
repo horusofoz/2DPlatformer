@@ -7,14 +7,89 @@ using UnityEngine.Experimental.PlayerLoop;
 public class PlayerController : MonoBehaviour
 {
 	private Rigidbody2D rb;
-	[Header("Movement")]
+
+    private bool isWalking
+    {
+        get
+        {
+            return GetComponent<Animator>().GetBool("isWalking");
+        }
+        set
+        {
+            GetComponent<Animator>().SetBool("isWalking", value);
+        }
+    }
+
+    private bool isGrounded
+    {
+        get
+        {
+            return GetComponent<Animator>().GetBool("isGrounded");
+        }
+        set
+        {
+            GetComponent<Animator>().SetBool("isGrounded", value);
+        }
+    }
+
+    private bool isBlocking
+    {
+        get
+        {
+            return GetComponent<Animator>().GetBool("isBlocking");
+        }
+        set
+        {
+            GetComponent<Animator>().SetBool("isBlocking", value);
+        }
+    }
+
+    public void SetAttackToFalse()
+    {
+
+    }
+
+    public bool isAttacking
+    {
+        get
+        {
+            return _isAttacking;
+        }
+        set
+        {
+            _isAttacking = value;
+            if (_isAttacking)
+            {
+                GetComponent<Animator>().SetTrigger("Attack");
+            }
+        }
+    }
+
+    /*public bool isBlock
+    {
+        get
+        {
+            return _isBlocking;
+        }
+        set
+        {
+            _isBlocking = value;
+            if (_isBlocking)
+            {
+                GetComponent<Animator>().SetTrigger("Block");
+            }
+        }
+    }*/
+
+    [Header("Movement")]
     public float speed;
+    public bool _isAttacking;
+    public bool _isBlocking;
     private float moveInput;
 	[Header("Ground Checking")]
 	public Transform feetPos;
 	public float checkRadius;
 	public LayerMask whatIsGround;
-	private bool isGrounded;
 	[Header("Jump Variables")]
 	public float jumpForce;
     public float jumpTime;
@@ -22,7 +97,8 @@ public class PlayerController : MonoBehaviour
     public int jumps = 2;
     private int jumpCounter;
     private float gravityScaleDefault;
-
+    [Header("Attack Variables")]
+    public float attackInput;
 
 
     void Start()
@@ -42,11 +118,20 @@ public class PlayerController : MonoBehaviour
     {
         ProcessInput();
         CheckIsPlayerGrounded();
+        Debug.Log(attackInput);
     }
 
     private void MovePlayerHorizontal()
     {
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        if(rb.velocity.x != 0 && isGrounded == true)
+        {
+            isWalking = true;
+        }
+        else if (isGrounded == true)
+        {
+            isWalking = false;
+        }
     }
 
     private void SetPlayerDirection()
@@ -69,7 +154,9 @@ public class PlayerController : MonoBehaviour
 	private void ProcessInput()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
+        attackInput = Input.GetAxisRaw("Fire1");
         Jump();
+        Attack();
     }
     
     private void Jump()
@@ -108,6 +195,16 @@ public class PlayerController : MonoBehaviour
         }
         
         
+    }
+
+    private void Attack()
+    {
+        // If the attack button isn't down or the user is already attacking, this function does nothing, return
+        if (Input.GetAxisRaw("Fire1") != 1 || isAttacking == true)
+        {
+            return;
+        }
+        isAttacking = true;
     }
 
     private void CheckIsPlayerGrounded()
