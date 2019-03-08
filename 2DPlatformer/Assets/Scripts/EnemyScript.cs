@@ -3,18 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
-public class EnemyEdgePatrol : MonoBehaviour
+public class EnemyScript : MonoBehaviour
 {
 	private Rigidbody2D _rb;
+	private delegate void Checks();
+	private Checks _checksToMake;
+	[Header("Behaviours")]
+	public bool DoEdgeCheck;
+	public bool DoWallCheck = true;
+	public bool DoTurnAround = true;
 	[Header("Movement")]
 	public float Speed;
-	public float footDist;
-
+	[Header("Sensitivity")]
+	public float FootDist;
 	public float AvoidWallDist = 0.3f;
 	public float AvoidDropDist = 0.3f;
 
 	private void Start()
 	{
+		if(DoEdgeCheck)_checksToMake += EdgeCheck;
+		if(DoWallCheck)_checksToMake += WallCheck;
+		// This delegate is an anonymous method, meaning I create it only if it's necessary. 
+		// The delegate keyword creates 
+		if(DoTurnAround)_checksToMake += delegate() 
+		{
+			GetComponent<SpriteRenderer>().flipX = Speed < 0 ? true : false;
+		};
 		_rb = GetComponent<Rigidbody2D>();
 		GetComponent<Animator>().SetBool("isWalking", true);
 	}
@@ -26,9 +40,7 @@ public class EnemyEdgePatrol : MonoBehaviour
 
 	private void Update()
 	{
-		EdgeCheck();
-		WallCheck();
-		GetComponent<SpriteRenderer>().flipX = Speed < 0 ? true : false;
+		_checksToMake();
 	}
 
 	private void WallCheck()
@@ -55,10 +67,10 @@ public class EnemyEdgePatrol : MonoBehaviour
 	{
 		#region  Get feet positions
 		Vector2 leftFoot = new Vector2(
-		/*X*/transform.position.x - footDist / 2f,
+		/*X*/transform.position.x - FootDist / 2f,
 		/*Y*/transform.position.y);
 		Vector2 rightFoot = new Vector2(
-		/*X*/transform.position.x + footDist / 2f,
+		/*X*/transform.position.x + FootDist / 2f,
 		/*Y*/transform.position.y);
 		#endregion
 		#region Check raycast for each foot
@@ -89,8 +101,8 @@ public class EnemyEdgePatrol : MonoBehaviour
 	{
 		leftWallRay = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.5f), Vector2.left, 5, LayerMask.GetMask("Ground"));
 		rightWallRay = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.5f), Vector2.right, 5, LayerMask.GetMask("Ground"));
-		Vector2 leftFoot = new Vector2(transform.position.x - footDist / 2f, transform.position.y);
-		Vector2 rightFoot = new Vector2(transform.position.x + footDist / 2f, transform.position.y);
+		Vector2 leftFoot = new Vector2(transform.position.x - FootDist / 2f, transform.position.y);
+		Vector2 rightFoot = new Vector2(transform.position.x + FootDist / 2f, transform.position.y);
 		Gizmos.DrawCube(leftFoot, new Vector3(0.2f, 0.2f, 0.2f));
 		Gizmos.DrawCube(rightFoot, new Vector3(0.2f, 0.2f, 0.2f));
 		if(leftWallRay.collider != null)

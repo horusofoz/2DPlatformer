@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour
 	private float jumpTimeCounter;
     public int jumps = 2;
     private int jumpCounter;
+	public float fallGravityScale;
     private float gravityScaleDefault;
     [Header("Attack Variables")]
     public float attackInput;
@@ -116,7 +117,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        ProcessInput();
+		// If player Y velocity is below 0
+		if (rb.velocity.y < 0)
+		{
+			// change gravity scale
+			rb.gravityScale = fallGravityScale;
+		}
+		ProcessInput();
         CheckIsPlayerGrounded();
     }
 
@@ -154,7 +161,8 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = Input.GetAxisRaw("Horizontal");
         attackInput = Input.GetAxisRaw("Fire1");
-        Jump();
+		
+		Jump();
         Attack();
     }
     
@@ -178,22 +186,12 @@ public class PlayerController : MonoBehaviour
             jumpCounter--;
             jumpTimeCounter = jumpTime;
         }
-        // If there's jump time left and there are spare jumps, continue adding force
-        if (jumpTimeCounter > 0 && jumpCounter >= 0)
-        {
-            jumpTimeCounter -= Time.deltaTime;
-            rb.velocity = Vector2.up * jumpForce;
-        }
-
-        // Increase gravity when descending
-        // If player Y velocity is below 0
-        if (rb.velocity.y > 0)
-        {
-            // Increase gravity by .1
-            rb.gravityScale += 0.25f;
-        }
-        
-        
+		// If there's jump time left and there are spare jumps, continue adding force
+		if (jumpTimeCounter > 0 && jumpCounter >= 0)
+		{
+			jumpTimeCounter -= Time.deltaTime;
+			rb.velocity = Vector2.up * jumpForce;
+		}
     }
 
     private void Attack()
