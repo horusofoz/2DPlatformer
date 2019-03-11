@@ -156,6 +156,16 @@ Prefab:
       propertyPath: m_Name
       value: Skeleton Edge Patrol (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 114240599076018192, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: _boxCollider
+      value: 
+      objectReference: {fileID: 212105872}
+    - target: {fileID: 212151867256249714, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
   m_IsPrefabAsset: 0
@@ -193,6 +203,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &212105872 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 61099939139329102, guid: e40a294d821fc5742a37bf7c0c961696,
+    type: 2}
+  m_PrefabInternal: {fileID: 130939606}
 --- !u!1001 &405910391
 Prefab:
   m_ObjectHideFlags: 0
@@ -235,6 +250,11 @@ Prefab:
     - target: {fileID: 1332772309001958, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
       propertyPath: m_Name
       value: Skeleton Edge Patrol (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 212151867256249714, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: m_FlipX
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
@@ -292,6 +312,16 @@ Prefab:
     - target: {fileID: 4113308597077554, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114240599076018192, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: _boxCollider
+      value: 
+      objectReference: {fileID: 1648810570}
+    - target: {fileID: 212151867256249714, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: m_FlipX
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
@@ -480,6 +510,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}
   m_IsPrefabAsset: 0
+--- !u!61 &1648810570 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 61099939139329102, guid: e40a294d821fc5742a37bf7c0c961696,
+    type: 2}
+  m_PrefabInternal: {fileID: 1044786300}
 --- !u!4 &1705438470 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4113308597077554, guid: e40a294d821fc5742a37bf7c0c961696,
@@ -5713,6 +5748,11 @@ Prefab:
       propertyPath: m_Name
       value: Skeleton Edge Patrol (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 212151867256249714, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
   m_IsPrefabAsset: 0
@@ -5759,6 +5799,11 @@ Prefab:
       propertyPath: m_Name
       value: Skeleton Edge Patrol (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 212151867256249714, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
   m_IsPrefabAsset: 0
@@ -5771,11 +5816,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4113308597077554, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -35.71616
+      value: -34.84
       objectReference: {fileID: 0}
     - target: {fileID: 4113308597077554, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.73254204
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 4113308597077554, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
       propertyPath: m_LocalPosition.z
