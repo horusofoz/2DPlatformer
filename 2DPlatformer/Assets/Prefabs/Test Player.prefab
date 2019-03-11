@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 212344722599979258}
   - component: {fileID: 95194776916257284}
   - component: {fileID: 61596899886455682}
+  - component: {fileID: 58939395275610894}
   - component: {fileID: 50398679206315548}
   - component: {fileID: 114790356849274862}
   m_Layer: 0
@@ -124,6 +125,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!58 &58939395275610894
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1785598343351488}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.009999998, y: 0.1}
+  serializedVersion: 2
+  m_Radius: 0.09
 --- !u!61 &61596899886455682
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -147,7 +163,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.34}
+  m_Size: {x: 0.16, y: 0.28}
   m_EdgeRadius: 0
 --- !u!61 &61723831674269944
 BoxCollider2D:
@@ -216,7 +232,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 7
   _isAttacking: 0
-  _isBlocking: 0
   feetPos: {fileID: 4266422880175130}
   checkRadius: 0.3
   whatIsGround:

@@ -32,18 +32,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool isBlocking
-    {
-        get
-        {
-            return GetComponent<Animator>().GetBool("isBlocking");
-        }
-        set
-        {
-            GetComponent<Animator>().SetBool("isBlocking", value);
-        }
-    }
-
     public void SetAttackToFalse()
     {
 
@@ -65,26 +53,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*public bool isBlock
-    {
-        get
-        {
-            return _isBlocking;
-        }
-        set
-        {
-            _isBlocking = value;
-            if (_isBlocking)
-            {
-                GetComponent<Animator>().SetTrigger("Block");
-            }
-        }
-    }*/
-
     [Header("Movement")]
     public float speed;
     public bool _isAttacking;
-    public bool _isBlocking;
     private float moveInput;
 	[Header("Ground Checking")]
 	public Transform feetPos;
@@ -96,7 +67,6 @@ public class PlayerController : MonoBehaviour
 	private float jumpTimeCounter;
     public int jumps = 2;
     private int jumpCounter;
-    private float gravityScaleDefault;
     [Header("Attack Variables")]
     public float attackInput;
 
@@ -104,14 +74,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        gravityScaleDefault = rb.gravityScale;
     }
 
     void FixedUpdate()
     {
         SetPlayerDirection();
         MovePlayerHorizontal();
-        SetGravityScale();
     }
 
     void Update()
@@ -183,16 +151,7 @@ public class PlayerController : MonoBehaviour
         {
             jumpTimeCounter -= Time.deltaTime;
             rb.velocity = Vector2.up * jumpForce;
-        }
-
-        // Increase gravity when descending
-        // If player Y velocity is below 0
-        if (rb.velocity.y > 0)
-        {
-            // Increase gravity by .1
-            rb.gravityScale += 0.25f;
-        }
-        
+        }      
         
     }
 
@@ -209,14 +168,5 @@ public class PlayerController : MonoBehaviour
     private void CheckIsPlayerGrounded()
     {
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
-    }
-
-    private void SetGravityScale()
-    {
-        // If player is not jumping or just landed, reset gravity
-        if (isGrounded)
-        {
-            rb.gravityScale = gravityScaleDefault;
-        }
     }
 }
