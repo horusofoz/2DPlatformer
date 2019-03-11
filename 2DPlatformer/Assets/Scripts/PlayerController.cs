@@ -53,9 +53,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public bool isDead
+    {
+        get
+        {
+            return _isDead;
+        }
+        set
+        {
+            _isDead = value;
+            if (_isDead)
+            {
+                GetComponent<Animator>().SetTrigger("Die");
+            }
+        }
+    }
+
     [Header("Movement")]
     public float speed;
     public bool _isAttacking;
+    public bool _isDead;
     private float moveInput;
 	[Header("Ground Checking")]
 	public Transform feetPos;
@@ -168,5 +185,13 @@ public class PlayerController : MonoBehaviour
     private void CheckIsPlayerGrounded()
     {
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "enemy")
+        {
+            isDead = true;
+        }
     }
 }
