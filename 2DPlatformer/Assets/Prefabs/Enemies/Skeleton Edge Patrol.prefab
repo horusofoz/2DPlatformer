@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332772309001958}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -34.84, y: 0.56, z: 0.65625}
+  m_LocalPosition: {x: -56.518078, y: -2.189015, z: 0.65625}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -118,13 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17fef89318645e44a8bc74b09306d66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boxCollider: {fileID: 0}
   DoEdgeCheck: 1
   DoWallCheck: 1
-  DoTurnAround: 1
-  Speed: -50
-  FootDist: 0.34
-  AvoidWallDist: 0.4
+  Speed: 50
+  WallCheckPos: {x: 0.24, y: 0.82}
+  EdgeCheckPos: {x: 0.21, y: 0}
+  AvoidWallDist: 0.48
   AvoidDropDist: 0.3
 --- !u!212 &212151867256249714
 SpriteRenderer:
@@ -161,7 +160,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300022, guid: 4e4023cd105e8bb4f8a3be3e7a609725, type: 3}
+  m_Sprite: {fileID: 21300012, guid: 4e4023cd105e8bb4f8a3be3e7a609725, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
