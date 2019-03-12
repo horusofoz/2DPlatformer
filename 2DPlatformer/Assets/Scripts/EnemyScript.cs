@@ -7,14 +7,14 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class EnemyScript : MonoBehaviour
 {
-	private enum dir
+	public enum Direction
 	{
 		Left = -1,
 		Right = 1,
 	}
-	private dir _direction = dir.Right;
+	public Direction _direction = Direction.Right;
 	private Rigidbody2D _rb;
-	private delegate void Checks();
+	private delegate bool Checks();
 	private Checks _checksToMake;
 	[Header("Behaviours")]
 	public bool DoEdgeCheck;
@@ -34,13 +34,9 @@ public class EnemyScript : MonoBehaviour
 	}
 	private void Start()
 	{
-		_direction = transform.localScale.x < 0 ? dir.Left : dir.Right;
+		_direction = transform.localScale.x < 0 ? Direction.Left : Direction.Right;
 		if(DoEdgeCheck)_checksToMake += EdgeCheck;
 		if(DoWallCheck)_checksToMake += WallCheck;
-		_checksToMake += delegate() 
-		{
-			GetComponent<SpriteRenderer>().flipX = _direction == dir.Left ? true : false;
-		};
 		GetComponent<Animator>().SetBool("isWalking", true);
 	}
 
@@ -49,61 +45,71 @@ public class EnemyScript : MonoBehaviour
 		Vector3 newVelocity = _rb.velocity;
 		newVelocity.x = (float)_direction * Speed * Time.fixedDeltaTime;
 		_rb.velocity = newVelocity;
-
 	}
 
 	private void Update()
 	{
-		// Equivalent to running all of the required checks
-		//Eg.
-		//WallCheck();
-		//EdgeCheck();
-		//GetComponent<SpriteRenderer>().flipX = _direction == dir.Left ? true : false;
-		_checksToMake();
-	}
-
-	private void WallCheck()
-	{
-		Vector2 wallChecker = (Vector2)transform.position;
-		wallChecker.x += WallCheckPos.x * (float)_direction;
-		wallChecker.y += WallCheckPos.y;
-		// Check distance to walls
-		RaycastHit2D forwardRay = Physics2D.Raycast(wallChecker, Vector2.right * (float)_direction, AvoidWallDist, LayerMask.GetMask("Ground"));
-		// If the there's a wall, turn around
-		if (forwardRay.collider != null)
+		// Equivalent to running all of the required checks, used for togglability
+		foreach (Checks check in _checksToMake.GetInvocationList())
 		{
-			_direction = (dir)(0 - (int)_direction);
-			print("Wall Turn");
+			if (check())
+			{
+				TurnAround();
+				if (check())
+				{
+					TurnAround();
+				}
+			}
 		}
 	}
 
-	private void EdgeCheck()
+	private bool WallCheck()
+	{
+		Vector2 wallChecker = transform.position;
+		wallChecker.x += WallCheckPos.x * (float)_direction;
+		wallChecker.y += WallCheckPos.y;
+		// Check distance to walls
+		var forwardRay = Physics2D.Raycast(wallChecker, Vector2.right * (float)_direction, AvoidWallDist, LayerMask.GetMask("Ground"));
+		// If the there's a wall, turn around
+		if (forwardRay.collider != null)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private bool EdgeCheck()
 	{
 		Vector2 edgeCheckerPos = transform.position;
 		edgeCheckerPos.x += EdgeCheckPos.x * (float)_direction;
 		edgeCheckerPos.y += EdgeCheckPos.y;
-
-		#region Check raycast for each foot
-		RaycastHit2D ray = Physics2D.Raycast(edgeCheckerPos, Vector2.down, AvoidDropDist, LayerMask.GetMask("Ground"));
-		#endregion
+		// Check for floor
+		var downRay = Physics2D.Raycast(edgeCheckerPos, Vector2.down, AvoidDropDist, LayerMask.GetMask("Ground"));
 		//If the foot is over the edge, turn around
-		if (ray.collider == null)
+		if (downRay.collider == null)
 		{
-			// Turn around
-			_direction = (dir)(0 - (int)_direction);
-			print("Edge Turn");
+			return true;
 		}
-
+		return false;
 	}
+
+	private void TurnAround()
+	{
+		_direction = (Direction)(-(int)_direction);
+
+		Vector3 newScale = transform.localScale;
+		newScale.x *= newScale.x < 0 ? -(float)_direction : (float)_direction;
+		transform.localScale = newScale;
+	}
+
 #if UNITY_EDITOR
 	private void OnDrawGizmos()
-	{
-		_direction = transform.localScale.x < 0 ? dir.Left : dir.Right;
+	{	
 		// Wall Gizmo
 		Gizmos.DrawLine(
-			(Vector2)transform.position + WallCheckPos, 
+			(Vector2)transform.position + WallCheckPos,
 			(Vector2)transform.position + WallCheckPos + Vector2.right * (float)_direction * AvoidWallDist);
-		// Foot Gizmo
+		// Edge Gizmo
 		Vector2 edgeCheckerPos = transform.position;
 		edgeCheckerPos.x += EdgeCheckPos.x * (float)_direction;
 		edgeCheckerPos.y += EdgeCheckPos.y;
@@ -112,21 +118,6 @@ public class EnemyScript : MonoBehaviour
 		Gizmos.DrawCube(edgeCheckerPos, Vector3.one * 0.2f);
 		// Line
 		Gizmos.DrawLine(edgeCheckerPos, edgeCheckEndPos);
-
-		//leftWallRay = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.5f), Vector2.left, 5, LayerMask.GetMask("Ground"));
-		//rightWallRay = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.5f), Vector2.right, 5, LayerMask.GetMask("Ground"));
-		//#region  Get feet positions
-		//Vector2 leftFoot = new Vector2(
-		///*X*/transform.position.x - FootDist / 2f,
-		///*Y*/transform.position.y);
-		//Vector2 rightFoot = new Vector2(
-		///*X*/transform.position.x + FootDist / 2f,
-		///*Y*/transform.position.y);
-		//#endregion
-		//Gizmos.DrawCube(leftFoot, new Vector2(0.1f, 0.1f));
-		//Gizmos.DrawCube(rightFoot, new Vector2(0.1f, 0.1f));
-		//	Gizmos.DrawLine(new Vector2(transform.position.x, transform.position.y + 0.5f), leftWallRay.point);
-		//Gizmos.DrawLine(new Vector2(transform.position.x, transform.position.y + 0.5f), rightWallRay.point);
 	}
 #endif
 }
