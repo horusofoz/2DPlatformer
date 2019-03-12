@@ -156,6 +156,25 @@ Prefab:
       propertyPath: m_Name
       value: Skeleton Edge Patrol (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 114240599076018192, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: _boxCollider
+      value: 
+      objectReference: {fileID: 212105872}
+    - target: {fileID: 212151867256249714, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332772309001958, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114240599076018192, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: WallCheckPos.x
+      value: 0.09
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
   m_IsPrefabAsset: 0
@@ -193,6 +212,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &212105872 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 61099939139329102, guid: e40a294d821fc5742a37bf7c0c961696,
+    type: 2}
+  m_PrefabInternal: {fileID: 130939606}
 --- !u!1001 &405910391
 Prefab:
   m_ObjectHideFlags: 0
@@ -236,6 +260,20 @@ Prefab:
       propertyPath: m_Name
       value: Skeleton Edge Patrol (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 212151867256249714, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332772309001958, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114240599076018192, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: WallCheckPos.x
+      value: 0.09
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
   m_IsPrefabAsset: 0
@@ -263,11 +301,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4113308597077554, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -56.518078
+      value: -57.44
       objectReference: {fileID: 0}
     - target: {fileID: 4113308597077554, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.189015
+      value: -2.61
       objectReference: {fileID: 0}
     - target: {fileID: 4113308597077554, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
       propertyPath: m_LocalPosition.z
@@ -447,7 +485,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4515030001156052, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -12.99
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 4515030001156052, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -476,6 +514,10 @@ Prefab:
     - target: {fileID: 4515030001156052, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785598343351488, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}
@@ -3367,8 +3409,8 @@ Tilemap:
       m_ColliderType: 1
   - first: {x: -7, y: -1, z: 0}
     second:
-      m_TileIndex: 3
-      m_TileSpriteIndex: 3
+      m_TileIndex: 15
+      m_TileSpriteIndex: 15
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -4058,6 +4100,15 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
+  - first: {x: -7, y: 0, z: 0}
+    second:
+      m_TileIndex: 15
+      m_TileSpriteIndex: 15
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
   - first: {x: 6, y: 0, z: 0}
     second:
       m_TileIndex: 4
@@ -4679,6 +4730,15 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
+  - first: {x: -7, y: 1, z: 0}
+    second:
+      m_TileIndex: 15
+      m_TileSpriteIndex: 15
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
   - first: {x: 6, y: 1, z: 0}
     second:
       m_TileIndex: 4
@@ -5165,6 +5225,15 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
+  - first: {x: -7, y: 2, z: 0}
+    second:
+      m_TileIndex: 15
+      m_TileSpriteIndex: 15
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
   - first: {x: 6, y: 2, z: 0}
     second:
       m_TileIndex: 3
@@ -5470,7 +5539,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 2eb8e65ec066e1641893d8ee61b2d02c, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 8cbcdd6a262acc14094aa2b910fef9c9, type: 2}
-  - m_RefCount: 15
+  - m_RefCount: 14
     m_Data: {fileID: 11400000, guid: 6a34929df8042f24f85b53608be531cc, type: 2}
   - m_RefCount: 40
     m_Data: {fileID: 11400000, guid: 68f3036fd4db5eb4e97955acec2a4d8d, type: 2}
@@ -5494,8 +5563,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 4
+    m_Data: {fileID: 11400000, guid: 9a44b00271012844d83931d6e0444ef8, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 256a16a513238f6489461d47d0b5f80d, type: 2}
   - m_RefCount: 1
@@ -5507,7 +5576,7 @@ Tilemap:
     m_Data: {fileID: 21300012, guid: 71e70d5226bfc534dbd69073c593a593, type: 3}
   - m_RefCount: 6
     m_Data: {fileID: 21300024, guid: 71e70d5226bfc534dbd69073c593a593, type: 3}
-  - m_RefCount: 15
+  - m_RefCount: 14
     m_Data: {fileID: 21300000, guid: 71e70d5226bfc534dbd69073c593a593, type: 3}
   - m_RefCount: 40
     m_Data: {fileID: 21300010, guid: 71e70d5226bfc534dbd69073c593a593, type: 3}
@@ -5531,14 +5600,14 @@ Tilemap:
     m_Data: {fileID: 21300042, guid: 71e70d5226bfc534dbd69073c593a593, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 4
+    m_Data: {fileID: 21300038, guid: 71e70d5226bfc534dbd69073c593a593, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300032, guid: 71e70d5226bfc534dbd69073c593a593, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300008, guid: 71e70d5226bfc534dbd69073c593a593, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 544
+  - m_RefCount: 547
     m_Data:
       e00: 1
       e01: 0
@@ -5557,7 +5626,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 544
+  - m_RefCount: 547
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5654,7 +5723,7 @@ SpriteRenderer:
   m_Size: {x: 15, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1806233794
@@ -5713,6 +5782,20 @@ Prefab:
       propertyPath: m_Name
       value: Skeleton Edge Patrol (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 212151867256249714, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332772309001958, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114240599076018192, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: WallCheckPos.x
+      value: 0.09
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
   m_IsPrefabAsset: 0
@@ -5759,6 +5842,20 @@ Prefab:
       propertyPath: m_Name
       value: Skeleton Edge Patrol (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 212151867256249714, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332772309001958, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114240599076018192, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: WallCheckPos.x
+      value: 0.09
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
   m_IsPrefabAsset: 0
@@ -5771,11 +5868,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4113308597077554, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -35.71616
+      value: -34.84
       objectReference: {fileID: 0}
     - target: {fileID: 4113308597077554, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.73254204
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 4113308597077554, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
       propertyPath: m_LocalPosition.z
@@ -5804,6 +5901,15 @@ Prefab:
     - target: {fileID: 1332772309001958, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
       propertyPath: m_Name
       value: Skeleton Edge Patrol (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332772309001958, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114240599076018192, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: WallCheckPos.x
+      value: 0.09
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
