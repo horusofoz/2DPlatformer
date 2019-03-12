@@ -187,9 +187,9 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnCollisionEnter2D(Collision2D collider)
     {
-        if (collider.gameObject.tag == "enemy")
+        if (collider.gameObject.tag == "enemy" && isAttacking == false)
         {
             isDead = true;
         }

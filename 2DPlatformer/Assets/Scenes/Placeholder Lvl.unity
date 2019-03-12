@@ -570,9 +570,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1785598343351488, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}
-      propertyPath: m_TagString
-      value: Player
+    - target: {fileID: 61596899886455682, guid: 8300d8af93fd44649af43a734d79e28f,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}
