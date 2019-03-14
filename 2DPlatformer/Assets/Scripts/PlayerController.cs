@@ -197,9 +197,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (gameObject.tag == "Finish")
+        if (collision.gameObject.tag == "Finish")
         {
             Debug.Log("Victory!!");
+            MenuController mc = new MenuController();
+            mc.LoadScene(2);
         }
     }
 }
