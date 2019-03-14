@@ -192,6 +192,8 @@ public class PlayerController : MonoBehaviour
         if (collider.gameObject.tag == "enemy" && isAttacking == false)
         {
             isDead = true;
+            MenuController mc = new MenuController();
+            mc.LoadScene(3);
         }
     }
 
