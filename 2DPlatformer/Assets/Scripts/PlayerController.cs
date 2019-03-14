@@ -194,4 +194,12 @@ public class PlayerController : MonoBehaviour
             isDead = true;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (gameObject.tag == "Finish")
+        {
+            Debug.Log("Victory!!");
+        }
+    }
 }
