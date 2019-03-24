@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 
-public class PlayerController : MonoBehaviour
+public class ScrappyController : MonoBehaviour
 {
-	private Rigidbody2D rb;
+    private Rigidbody2D rb;
+    private MenuController mc;
+    private Animator anim;
+    private BoxCollider2D boxCol;
+    private GameManager gm;
+    private GameObject swordArm;
 
     private bool isWalking
     {
@@ -43,7 +46,7 @@ public class PlayerController : MonoBehaviour
             _isAttacking = value;
             if (_isAttacking)
             {
-                GetComponent<Animator>().SetTrigger("Attack");
+                GetComponent<Animator>().SetTrigger("attack");
             }
         }
     }
@@ -59,37 +62,51 @@ public class PlayerController : MonoBehaviour
             _isDead = value;
             if (_isDead)
             {
-                GetComponent<Animator>().SetTrigger("Die");
+                GetComponent<Animator>().SetTrigger("die");
             }
         }
     }
+
+    
 
     [Header("Movement")]
     public float speed;
     public bool _isAttacking;
     public bool _isDead;
     private float moveInput;
-	[Header("Ground Checking")]
-	public Transform feetPos;
-	public float checkRadius;
-	public LayerMask whatIsGround;
-	[Header("Jump Variables")]
-	public float jumpForce;
+    [Header("Ground Checking")]
+    public Transform feetPos;
+    public float checkRadius;
+    public LayerMask whatIsGround;
+    [Header("Jump Variables")]
+    public bool isJumping;
+    public float jumpForce;
     public float jumpTime;
-	private float jumpTimeCounter;
-    public int jumps = 2;
-    private int jumpCounter;
+    private float jumpTimeCounter;
+
+
     [Header("Attack Variables")]
     public float attackInput;
+    public GameObject weaponArm;
+    public Sprite armSword;
+    public Sprite armUnarmed;
+    private const int WEAPONUNARMED = 0;
+    private const int WEAPONSWORD = 1;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        mc = GameObject.FindObjectOfType<MenuController>();
+        anim = GetComponent<Animator>();
+        boxCol = GetComponent<BoxCollider2D>();
+        gm = GameObject.FindObjectOfType<GameManager>();
+        swordArm =  GameObject.Find("scrappy arm left");
     }
 
     void FixedUpdate()
     {
+        SetPlayerDirection();
         SetPlayerDirection();
         MovePlayerHorizontal();
     }
@@ -103,7 +120,7 @@ public class PlayerController : MonoBehaviour
     private void MovePlayerHorizontal()
     {
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
-        if(rb.velocity.x != 0 && isGrounded == true)
+        if (rb.velocity.x != 0 && isGrounded == true)
         {
             isWalking = true;
         }
@@ -129,42 +146,40 @@ public class PlayerController : MonoBehaviour
 
 
     }
-	
-	private void ProcessInput()
+
+    private void ProcessInput()
     {
-        moveInput = Input.GetAxisRaw("Horizontal");
-        attackInput = Input.GetAxisRaw("Fire1");
-        Jump();
-        Attack();
+        if (isDead == false)
+        {
+            moveInput = Input.GetAxisRaw("Horizontal");
+            attackInput = Input.GetAxisRaw("Fire1");
+            Jump();
+            Attack();
+        }
+        
     }
-    
+
     private void Jump()
     {
-        // If the jump button isn't down this function does nothing, return
-        if (!Input.GetButton("Jump"))
+        // If on ground and jump pressed
+        if (isGrounded == true && Input.GetButtonDown("Jump"))
         {
-            jumpTimeCounter = 0f;
-            return;
+            anim.SetTrigger("takeOf");
+            isJumping = true;
+            jumpTimeCounter = jumpTime;
+            rb.velocity = Vector2.up * jumpForce;
         }
 
-        // On jump, take one jumpCounter and refil jump time
-        // If on ground, refill jumps first
-        if (Input.GetButtonDown("Jump"))
+        if (isGrounded == true)
         {
-            if (isGrounded)
-            {
-                jumpCounter = jumps;
-            }
-            jumpCounter--;
-            jumpTimeCounter = jumpTime;
+            anim.SetBool("isJumping", false);
         }
-        // If there's jump time left and there are spare jumps, continue adding force
-        if (jumpTimeCounter > 0 && jumpCounter >= 0)
+        else
         {
-            jumpTimeCounter -= Time.deltaTime;
-            rb.velocity = Vector2.up * jumpForce;
-        }      
-        
+            anim.SetBool("isJumping", true);
+        }
+
+
     }
 
     private void Attack()
@@ -175,6 +190,17 @@ public class PlayerController : MonoBehaviour
             return;
         }
         isAttacking = true;
+        StartCoroutine(EnableWeaponCollider());
+        isAttacking = false;
+    }
+
+    private IEnumerator Die()
+    {
+        moveInput = 0;
+        attackInput = 0;
+        isDead = true;
+        yield return new WaitForSeconds(1);
+        mc.LoadScene(3);
     }
 
     private void CheckIsPlayerGrounded()
@@ -186,9 +212,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.tag == "enemy" && isAttacking == false)
         {
-            isDead = true;
-            MenuController mc = new MenuController();
-            mc.LoadScene(3);
+            StartCoroutine(Die());
         }
     }
 
@@ -197,8 +221,18 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Finish")
         {
             Debug.Log("Victory!!");
-            MenuController mc = new MenuController();
             mc.LoadScene(2);
+            
         }
     }
+
+
+
+    private IEnumerator EnableWeaponCollider()
+    {
+        swordArm.GetComponent<BoxCollider2D>().enabled = true;
+        yield return new WaitForSeconds(.5f);
+        swordArm.GetComponent<BoxCollider2D>().enabled = false;
+    }
+
 }
