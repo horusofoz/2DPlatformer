@@ -43,8 +43,8 @@ public class EnemyScript : MonoBehaviour
 	private void FixedUpdate()
 	{
 		Vector3 newVelocity = _rb.velocity;
-		newVelocity.x = (float)_direction * Speed * Time.fixedDeltaTime;
-		_rb.velocity = newVelocity;
+		newVelocity.x = (float)_direction * Speed * Time.fixedDeltaTime; // Should this be Time.deltaTime? - http://answers.unity.com/answers/871440/view.html
+        _rb.velocity = newVelocity;
 	}
 
 	private void Update()
