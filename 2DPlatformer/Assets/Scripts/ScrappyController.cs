@@ -102,6 +102,7 @@ public class ScrappyController : MonoBehaviour
         boxCol = GetComponent<BoxCollider2D>();
         gm = GameObject.FindObjectOfType<GameManager>();
         swordArm =  GameObject.Find("scrappy arm left");
+        boxCol = swordArm.GetComponent<BoxCollider2D>();
     }
 
     void FixedUpdate()
@@ -226,13 +227,11 @@ public class ScrappyController : MonoBehaviour
         }
     }
 
-
-
     private IEnumerator EnableWeaponCollider()
     {
-        swordArm.GetComponent<BoxCollider2D>().enabled = true;
+        boxCol.enabled = true;
         yield return new WaitForSeconds(.5f);
-        swordArm.GetComponent<BoxCollider2D>().enabled = false;
+        boxCol.enabled = false;
     }
 
 }

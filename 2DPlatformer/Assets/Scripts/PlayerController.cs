@@ -7,6 +7,7 @@ using UnityEngine.Experimental.PlayerLoop;
 public class PlayerController : MonoBehaviour
 {
 	private Rigidbody2D rb;
+    private MenuController mc;
 
     private bool isWalking
     {
@@ -86,6 +87,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        mc = GameObject.FindObjectOfType<MenuController>();
     }
 
     void FixedUpdate()
@@ -187,7 +189,6 @@ public class PlayerController : MonoBehaviour
         if (collider.gameObject.tag == "enemy" && isAttacking == false)
         {
             isDead = true;
-            MenuController mc = new MenuController();
             mc.LoadScene(3);
         }
     }
