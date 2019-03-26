@@ -213,7 +213,7 @@ public class ScrappyController : MonoBehaviour
     {
         if (collider.gameObject.tag == "enemy" && isAttacking == false)
         {
-            StartCoroutine(Die());
+            ProcessHit();
         }
     }
 
@@ -233,6 +233,18 @@ public class ScrappyController : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         boxCol.enabled = false;
         isAttacking = false;
+    }
+
+    private void ProcessHit()
+    {
+        if(GameManager.instance.getHealth() < 1)
+        {
+            StartCoroutine(Die());
+        }
+        else
+        {
+            GameManager.instance.takeHealth(1);
+        }
     }
 
 }
