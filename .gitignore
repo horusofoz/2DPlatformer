@@ -34,3 +34,8 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+2DPlatformer/Assets/Sprites/Zombie.meta
+2DPlatformer/Assets/Sprites/Soldier.meta
+2DPlatformer/Assets/Sprites/Player.meta
+2DPlatformer/Assets/Sprites/Female.meta
+2DPlatformer/Assets/Sprites/Adventurer.meta
