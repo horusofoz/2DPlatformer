@@ -192,7 +192,7 @@ public class ScrappyController : MonoBehaviour
         }
         isAttacking = true;
         StartCoroutine(EnableWeaponCollider());
-        isAttacking = false;
+
     }
 
     private IEnumerator Die()
@@ -232,6 +232,7 @@ public class ScrappyController : MonoBehaviour
         boxCol.enabled = true;
         yield return new WaitForSeconds(.5f);
         boxCol.enabled = false;
+        isAttacking = false;
     }
 
 }
