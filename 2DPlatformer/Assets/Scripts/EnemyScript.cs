@@ -7,12 +7,12 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class EnemyScript : MonoBehaviour
 {
-	public enum Direction
+	public enum Directions
 	{
 		Left = -1,
 		Right = 1,
 	}
-	public Direction _direction = Direction.Right;
+	public Directions Direction = Directions.Right;
 	private Rigidbody2D _rb;
 	private delegate bool Checks();
 	private Checks _checksToMake;
@@ -34,16 +34,20 @@ public class EnemyScript : MonoBehaviour
 	}
 	private void Start()
 	{
-		_direction = transform.localScale.x < 0 ? Direction.Left : Direction.Right;
+		Direction = transform.localScale.x < 0 ? Directions.Left : Directions.Right;
 		if(DoEdgeCheck)_checksToMake += EdgeCheck;
 		if(DoWallCheck)_checksToMake += WallCheck;
-		GetComponent<Animator>().SetBool("isWalking", true);
+		if(GetComponent<Animator>())
+			GetComponent<Animator>().SetBool("isWalking", true);
 	}
 
 	private void FixedUpdate()
 	{
 		Vector3 newVelocity = _rb.velocity;
-		newVelocity.x = (float)_direction * Speed * Time.fixedDeltaTime; // Should this be Time.deltaTime? - http://answers.unity.com/answers/871440/view.html
+		// It should be nothing. I made the mistake of trying to normalize it so if we changed the fixed update intervals it would 
+		// maintain the same speed. I was wrong as the physics engine takes care of that, this should specify the m/s
+		// Not the actual movement distance, which would be normalized by deltaTime. Good pickup. 
+		newVelocity.x = (float)Direction * Speed; // Should this be Time.deltaTime? - http://answers.unity.com/answers/871440/view.html
         _rb.velocity = newVelocity;
 	}
 
@@ -66,10 +70,10 @@ public class EnemyScript : MonoBehaviour
 	private bool WallCheck()
 	{
 		Vector2 wallChecker = transform.position;
-		wallChecker.x += WallCheckPos.x * (float)_direction;
+		wallChecker.x += WallCheckPos.x * (float)Direction;
 		wallChecker.y += WallCheckPos.y;
 		// Check distance to walls
-		var forwardRay = Physics2D.Raycast(wallChecker, Vector2.right * (float)_direction, AvoidWallDist, LayerMask.GetMask("Ground"));
+		var forwardRay = Physics2D.Raycast(wallChecker, Vector2.right * (float)Direction, AvoidWallDist, LayerMask.GetMask("Ground"));
 		// If the there's a wall, turn around
 		if (forwardRay.collider != null)
 		{
@@ -81,7 +85,7 @@ public class EnemyScript : MonoBehaviour
 	private bool EdgeCheck()
 	{
 		Vector2 edgeCheckerPos = transform.position;
-		edgeCheckerPos.x += EdgeCheckPos.x * (float)_direction;
+		edgeCheckerPos.x += EdgeCheckPos.x * (float)Direction;
 		edgeCheckerPos.y += EdgeCheckPos.y;
 		// Check for floor
 		var downRay = Physics2D.Raycast(edgeCheckerPos, Vector2.down, AvoidDropDist, LayerMask.GetMask("Ground"));
@@ -95,10 +99,10 @@ public class EnemyScript : MonoBehaviour
 
 	private void TurnAround()
 	{
-		_direction = (Direction)(-(int)_direction);
+		Direction = (Directions)(-(int)Direction);
 
 		Vector3 newScale = transform.localScale;
-		newScale.x *= newScale.x < 0 ? -(float)_direction : (float)_direction;
+		newScale.x *= newScale.x < 0 ? -(float)Direction : (float)Direction;
 		transform.localScale = newScale;
 	}
 
@@ -108,10 +112,10 @@ public class EnemyScript : MonoBehaviour
 		// Wall Gizmo
 		Gizmos.DrawLine(
 			(Vector2)transform.position + WallCheckPos,
-			(Vector2)transform.position + WallCheckPos + Vector2.right * (float)_direction * AvoidWallDist);
+			(Vector2)transform.position + WallCheckPos + Vector2.right * (float)Direction * AvoidWallDist);
 		// Edge Gizmo
 		Vector2 edgeCheckerPos = transform.position;
-		edgeCheckerPos.x += EdgeCheckPos.x * (float)_direction;
+		edgeCheckerPos.x += EdgeCheckPos.x * (float)Direction;
 		edgeCheckerPos.y += EdgeCheckPos.y;
 		Vector2 edgeCheckEndPos = edgeCheckerPos - Vector2.up * AvoidDropDist;
 		// Cube

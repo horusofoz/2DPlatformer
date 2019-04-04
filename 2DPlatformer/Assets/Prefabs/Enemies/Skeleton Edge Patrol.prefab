@@ -121,7 +121,7 @@ MonoBehaviour:
   _direction: 1
   DoEdgeCheck: 1
   DoWallCheck: 1
-  Speed: 50
+  Speed: 2
   WallCheckPos: {x: 0.24, y: 0.82}
   EdgeCheckPos: {x: 0.21, y: 0}
   AvoidWallDist: 0.48
