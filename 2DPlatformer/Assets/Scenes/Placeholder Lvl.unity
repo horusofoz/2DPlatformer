@@ -373,6 +373,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114240599076018192, guid: e40a294d821fc5742a37bf7c0c961696,
+        type: 2}
+      propertyPath: FloorCheck.LayerToInteract.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e40a294d821fc5742a37bf7c0c961696, type: 2}
   m_IsPrefabAsset: 0
@@ -711,7 +716,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4515030001156052, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -12.9
+      value: 6.3
       objectReference: {fileID: 0}
     - target: {fileID: 4515030001156052, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -6192,7 +6197,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2063833266}
   - component: {fileID: 2063833265}
-  - component: {fileID: 2063833264}
   - component: {fileID: 2063833269}
   - component: {fileID: 2063833268}
   - component: {fileID: 2063833267}
@@ -6203,17 +6207,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2063833264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2063833263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 773f88deb6652b54b877ea3f6068b482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &2063833265
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6267,7 +6260,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2063833263}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.96, y: 3.13, z: -0.05859375}
+  m_LocalPosition: {x: 9.85, y: 3.18, z: -0.05859375}
   m_LocalScale: {x: 0.34, y: 0.34, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6284,14 +6277,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17fef89318645e44a8bc74b09306d66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: 1
-  DoEdgeCheck: 1
-  DoWallCheck: 0
   Speed: 2.5
-  WallCheckPos: {x: 0.74, y: 0}
-  EdgeCheckPos: {x: 0.8, y: 0}
-  AvoidWallDist: 0.3
-  AvoidDropDist: 0.34
+  Direction: 1
+  CheckActions:
+  - ActionName: Wall Check
+    Position: {x: 0.54, y: 0.34}
+    Direction: {x: 1, y: 0}
+    Distance: 0.71
+    Tag: 
+    LayerToInteract:
+      serializedVersion: 2
+      m_Bits: 256
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2063833267}
+          m_MethodName: TurnAround
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - ActionName: Leap at Player
+    Position: {x: 0.54, y: 0.34}
+    Direction: {x: 1, y: 0}
+    Distance: 2.75
+    Tag: Player
+    LayerToInteract:
+      serializedVersion: 2
+      m_Bits: 0
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2063833267}
+          m_MethodName: Leap
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 50
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  FloorCheck:
+    ActionName: Action
+    Position: {x: 0.64, y: 0}
+    Direction: {x: 0, y: -1}
+    Distance: 0.24
+    Tag: 
+    LayerToInteract:
+      serializedVersion: 2
+      m_Bits: 256
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2063833267}
+          m_MethodName: TurnAround
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  ShowGizmos: 1
 --- !u!50 &2063833268
 Rigidbody2D:
   serializedVersion: 4
@@ -6336,7 +6398,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 4.94, y: 2.34}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.06
 --- !u!4 &2126755477 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4113308597077554, guid: e40a294d821fc5742a37bf7c0c961696,

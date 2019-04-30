@@ -118,14 +118,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17fef89318645e44a8bc74b09306d66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _direction: 1
-  DoEdgeCheck: 1
-  DoWallCheck: 1
   Speed: 2
-  WallCheckPos: {x: 0.24, y: 0.82}
-  EdgeCheckPos: {x: 0.21, y: 0}
-  AvoidWallDist: 0.48
-  AvoidDropDist: 0.3
+  Direction: 1
+  CheckActions:
+  - ActionName: Wall Check
+    Position: {x: 0.2, y: 0.62}
+    Direction: {x: 1, y: 0}
+    Distance: 0.5
+    CheckTag: 0
+    Tag: 
+    CheckLayer: 1
+    LayerToInteract:
+      serializedVersion: 2
+      m_Bits: 256
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114240599076018192}
+          m_MethodName: TurnAround
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  FloorCheck:
+    ActionName: Floor Check
+    Position: {x: 0.33, y: 0.09}
+    Direction: {x: 0, y: -1}
+    Distance: 0.37
+    CheckTag: 0
+    Tag: 
+    CheckLayer: 1
+    LayerToInteract:
+      serializedVersion: 2
+      m_Bits: 256
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114240599076018192}
+          m_MethodName: TurnAround
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  ShowGizmos: 1
 --- !u!212 &212151867256249714
 SpriteRenderer:
   m_ObjectHideFlags: 1
