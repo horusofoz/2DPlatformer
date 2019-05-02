@@ -10,6 +10,6 @@ public class CameraControl : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        transform.position = new Vector3(player.position.x + offset.x, offset.y, offset.z); //set offset values to x=0 y=3 z=-10
+        transform.position = new Vector3(player.position.x + offset.x, player.position.y + offset.y, offset.z); //set offset values to x=0 y=3 z=-10
 	}
 }
