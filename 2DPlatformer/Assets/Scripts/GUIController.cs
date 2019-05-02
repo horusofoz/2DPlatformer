@@ -7,6 +7,7 @@ public class GUIController : MonoBehaviour {
 
     private TMP_Text scoreLabel;
     private TMP_Text healthLabel;
+    
 
     // Use this for initialization
     void Start () {
@@ -16,7 +17,7 @@ public class GUIController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        scoreLabel.SetText(GameManager.instance.getScore().ToString());
-        healthLabel.SetText(GameManager.instance.getHealth().ToString());
+        scoreLabel.SetText(GameManager.instance.GetScore().ToString());
+        healthLabel.SetText(GameManager.instance.GetHealth().ToString());
     }
 }

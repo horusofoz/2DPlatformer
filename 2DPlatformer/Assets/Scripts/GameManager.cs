@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
     private int score;
     private int health;
+    private bool keyCollected;
 
-    // Euns before Start
     private void Awake()
     {
         if(instance == null)
@@ -23,35 +23,40 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-
     private void Start()
     {
         score = 0;
         health = 3;
     }
 
-    public void addScore(int points)
+    public void AddScore(int points)
     {
         score += points;
     }
 
-    public int getScore()
+    public int GetScore()
     {
         return score;
     }
 
-    public void addHealth(int hearts)
+    public void AddHealth(int hearts)
     {
         health += hearts;
     }
 
-    public void takeHealth(int hearts)
+    public void TakeHealth(int hearts)
     {
         health -= hearts;
     }
 
-    public int getHealth()
+    public int GetHealth()
     {
         return health;
+    }
+
+    public void SetKey(bool keyStatus)
+    {
+        keyCollected = keyStatus;
+        AddScore(1000);
     }
 }

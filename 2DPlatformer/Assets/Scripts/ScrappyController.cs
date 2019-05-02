@@ -237,13 +237,13 @@ public class ScrappyController : MonoBehaviour
 
     private void ProcessHit()
     {
-        if(GameManager.instance.getHealth() < 1)
+        if(GameManager.instance.GetHealth() < 1)
         {
             StartCoroutine(Die());
         }
         else
         {
-            GameManager.instance.takeHealth(1);
+            GameManager.instance.TakeHealth(1);
         }
     }
 

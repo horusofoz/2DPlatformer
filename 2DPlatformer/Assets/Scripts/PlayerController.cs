@@ -153,6 +153,7 @@ public class PlayerController : MonoBehaviour
         // If on ground, refill jumps first
         if (Input.GetButtonDown("Jump"))
         {
+            Debug.Log("pressed jump");
             if (isGrounded)
             {
                 jumpCounter = jumps;

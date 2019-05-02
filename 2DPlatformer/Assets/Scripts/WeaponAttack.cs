@@ -22,8 +22,8 @@ public class WeaponAttack : MonoBehaviour {
             // TODO Call function for enemy hit/die animation
             // TODO Call function for player animation from successful hit e.g. SFX,VFX
             // Score change?
-            GameManager.instance.addScore(100);
-            Debug.Log(GameManager.instance.getScore());
+            GameManager.instance.AddScore(100);
+            Debug.Log(GameManager.instance.GetScore());
             Destroy(collider.gameObject);
         }
     }
