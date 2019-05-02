@@ -24,12 +24,21 @@ public class EnemyScript : MonoBehaviour
 		public string Tag;
 		public LayerMask LayerToInteract = default(LayerMask);
 		public UnityEvent Event;
+
 		public bool CheckHit(Vector2 parent = new Vector2(), Directions direction = Directions.Right)
 		{
 			var ray = Ray(parent, direction);
-			return ray.collider != null && (string.IsNullOrEmpty(Tag) || Tag == ray.collider.gameObject.tag);
+			bool condition = false;
+			foreach(var collision in ray)
+			{
+				if (collision.collider != null && (string.IsNullOrEmpty(Tag) || Tag == collision.collider.gameObject.tag))
+				{
+					condition = true;
+				}
+			}
+			return condition;
 		}
-		public RaycastHit2D Ray(Vector2 parent = new Vector2(), Directions direction = Directions.Right)
+		public RaycastHit2D[] Ray(Vector2 parent = new Vector2(), Directions direction = Directions.Right)
 		{
 			// Relativity for turning around
 			Vector2 relativeDirection = Direction;
@@ -39,9 +48,9 @@ public class EnemyScript : MonoBehaviour
 			relativePosition += parent;
 			if (LayerToInteract != default(LayerMask))
 			{
-				return Physics2D.Raycast(relativePosition, relativeDirection, Distance, LayerToInteract.value);
+				return Physics2D.RaycastAll(relativePosition, relativeDirection, Distance, LayerToInteract.value);
 			}
-			return Physics2D.Raycast(relativePosition, relativeDirection, Distance);
+			return Physics2D.RaycastAll(relativePosition, relativeDirection, Distance);
 		}
 	}
 	public enum Directions
@@ -49,6 +58,7 @@ public class EnemyScript : MonoBehaviour
 		Left = -1,
 		Right = 1,
 	}
+	private bool _grounded;
 	private Rigidbody2D _rb;
 	[Header("Movement")]
 	public float Speed;
@@ -96,7 +106,23 @@ public class EnemyScript : MonoBehaviour
 		if (!FloorCheck.CheckHit(transform.position, Direction))
 		{
 			FloorCheck.Event.Invoke();
+			// This is for the sake of the spinning it does if it's in the air. Again, a better solution is welcome. 
+			if (!FloorCheck.CheckHit(transform.position, Direction))
+			{
+				FloorCheck.Event.Invoke();
+			}
 		}
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+			_grounded = true;
+	}
+	private void OnCollisionExit2D(Collision2D collision)
+	{
+		if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+			_grounded = false;
 	}
 	#region Actions
 	public void TurnAround()
@@ -109,6 +135,7 @@ public class EnemyScript : MonoBehaviour
 	}
 	public void Leap(float force)
 	{
+		if (!_grounded) return;
 		print("leap");
 		// not moving in the air already, will improve this
 		if(_rb.velocity.y == 0)
@@ -140,105 +167,4 @@ public class EnemyScript : MonoBehaviour
 		Gizmos.DrawLine(relativePosition, relativePosition + relativeDirection);
 	}
 #endif
-	/*
-	private void Awake()
-	{
-		_rb = GetComponent<Rigidbody2D>();
-	}
-	private void Start()
-	{
-		Direction = transform.localScale.x < 0 ? Directions.Left : Directions.Right;
-		if(DoEdgeCheck)_checksToMake += EdgeCheck;
-		if(DoWallCheck)_checksToMake += WallCheck;
-		if(GetComponent<Animator>())
-			GetComponent<Animator>().SetBool("isWalking", true);
-	}
-
-	private void FixedUpdate()
-	{
-		Vector3 newVelocity = _rb.velocity;
-		// It should be nothing. I made the mistake of trying to normalize it so if we changed the fixed update intervals it would 
-		// maintain the same speed. I was wrong as the physics engine takes care of that, this should specify the m/s
-		// Not the actual movement distance, which would be normalized by deltaTime. Good pickup. 
-		newVelocity.x = (float)Direction * Speed; // Should this be Time.deltaTime? - http://answers.unity.com/answers/871440/view.html
-        _rb.velocity = newVelocity;
-	}
-
-	private void Update()
-	{
-		// Equivalent to running all of the required checks, used for togglability
-		foreach (Checks check in _checksToMake.GetInvocationList())
-		{
-			if (check())
-			{
-				TurnAround();
-				// Check again to prevent turning once per frame
-				if (check())
-				{
-					TurnAround();
-				}
-			}
-		}
-	}
-
-	private bool WallCheck()
-	{
-		Vector2 wallChecker = transform.position;
-		wallChecker.x += WallCheckPos.x * (float)Direction;
-		wallChecker.y += WallCheckPos.y;
-		// Check distance to walls
-		var forwardRay = Physics2D.Raycast(wallChecker, Vector2.right * (float)Direction, AvoidWallDist, LayerMask.GetMask("Ground"));
-		// If the there's a wall, turn around
-		if (forwardRay.collider != null)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	private bool EdgeCheck()
-	{
-		Vector2 edgeCheckerPos = transform.position;
-		edgeCheckerPos.x += EdgeCheckPos.x * (float)Direction;
-		edgeCheckerPos.y += EdgeCheckPos.y;
-		// Check for floor
-		var downRay = Physics2D.Raycast(edgeCheckerPos, Vector2.down, AvoidDropDist, LayerMask.GetMask("Ground"));
-		//If the foot is over the edge, turn around
-		if (downRay.collider == null)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	private void TurnAround()
-	{
-		Direction = (Directions)(-(int)Direction);
-
-		Vector3 newScale = transform.localScale;
-		newScale.x *= newScale.x < 0 ? -(float)Direction : (float)Direction;
-		transform.localScale = newScale;
-	}
-
-#if UNITY_EDITOR
-	public bool ShowGizmos = true;
-	private void OnDrawGizmos()
-	{
-		if (!ShowGizmos) return;
-		// Wall Gizmo
-		Gizmos.DrawLine(
-			(Vector2)transform.position + WallCheckPos,
-			(Vector2)transform.position + WallCheckPos + Vector2.right * (float)Direction * AvoidWallDist);
-		// Edge Gizmo
-		Vector2 edgeCheckerPos = transform.position;
-		edgeCheckerPos.x += EdgeCheckPos.x * (float)Direction;
-		edgeCheckerPos.y += EdgeCheckPos.y;
-		Vector2 edgeCheckEndPos = edgeCheckerPos - Vector2.up * AvoidDropDist;
-		// Cube
-		Gizmos.DrawCube(edgeCheckerPos, Vector3.one * 0.2f);
-		// Line
-		Gizmos.DrawLine(edgeCheckerPos, edgeCheckEndPos);
-	}
-#endif
-*/
 }
