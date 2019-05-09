@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
 	private Rigidbody2D rb;
     private MenuController mc;
+    private GameManager gameManager;
 
     private bool isWalking
     {
@@ -78,16 +79,20 @@ public class PlayerController : MonoBehaviour
 	public float jumpForce;
     public float jumpTime;
 	private float jumpTimeCounter;
-    public int jumps = 2;
+    public int jumps = 1;
     private int jumpCounter;
     [Header("Attack Variables")]
     public float attackInput;
+
+    public bool keyCollected = false;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         mc = GameObject.FindObjectOfType<MenuController>();
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+
     }
 
     void FixedUpdate()
@@ -192,6 +197,13 @@ public class PlayerController : MonoBehaviour
             isDead = true;
             mc.LoadScene(3);
         }
+
+        if (collider.gameObject.name == "Door Key Parent" && keyCollected == true)
+        {
+            Debug.LogError("Destroy Door");
+            collider.gameObject.SetActive(false);
+            gameManager.AddScore(2000);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -201,6 +213,27 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Victory!!");
             MenuController mc = new MenuController();
             mc.LoadScene(2);
+        }
+
+        if(collision.gameObject.name == "Double Jump Item")
+        {
+            Debug.Log("Unlocked Double Jump!");
+            gameManager.SetDoubleJumpStatus(true);
+            collision.gameObject.SetActive(false);
+            gameManager.AddScore(1000);
+        }
+        
+        if (collision.gameObject.tag == "keyGold")
+        {
+            collision.gameObject.SetActive(false);
+            gameManager.SetKeyStatus(true);
+            gameManager.AddScore(2000);
+        }
+
+        if (collision.gameObject.tag == "crystal")
+        {
+            collision.gameObject.SetActive(false);
+            gameManager.AddScore(250);
         }
     }
 }

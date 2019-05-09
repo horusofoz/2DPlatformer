@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     private int score;
     private int health;
     private bool keyCollected;
+    private bool doubleJumpEnabled;
 
     private void Awake()
     {
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour {
     {
         score = 0;
         health = 3;
+        keyCollected = false;
+        doubleJumpEnabled = false;
     }
 
     public void AddScore(int points)
@@ -58,5 +61,25 @@ public class GameManager : MonoBehaviour {
     {
         keyCollected = keyStatus;
         AddScore(1000);
+    }
+
+    public void SetDoubleJumpStatus(bool status)
+    {
+        if(status == true)
+        {
+            doubleJumpEnabled = true;
+            FindObjectOfType<PlayerController>().jumps = 2;
+        }
+        else
+        {
+            doubleJumpEnabled = false;
+            FindObjectOfType<PlayerController>().jumps = 1;
+        }
+    }
+
+    public void SetKeyStatus(bool status)
+    {
+            keyCollected = status;
+            FindObjectOfType<PlayerController>().keyCollected = status;
     }
 }
