@@ -64,6 +64,8 @@ public class EnemyScript : MonoBehaviour
 	public float Speed;
 	public Directions Direction = Directions.Right;
 	[Header("Actions and Checks")]
+	public float SoundFrequencyMin;
+	public float SoundFrequencyMax;
 	public RayCheckAction[] CheckActions;
 	// There's Probably a better way to do this, but since "floor check" is checking for a lack of collision, 
 	// the checker in the update loop won't work for checking an absence of floor. 
@@ -80,7 +82,12 @@ public class EnemyScript : MonoBehaviour
 		Direction = transform.localScale.x < 0 ? Directions.Left : Directions.Right;
 		if (GetComponent<Animator>())
 			GetComponent<Animator>().SetBool("isWalking", true);
+		var audio = GetComponent<AudioSource>();
+		if (audio){
+			StartCoroutine(EnemySound());
+		}
 	}
+
 
 	private void FixedUpdate()
 	{
@@ -124,6 +131,12 @@ public class EnemyScript : MonoBehaviour
 		if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
 			_grounded = false;
 	}
+	private IEnumerator EnemySound()
+	{
+		yield return new WaitForSeconds(UnityEngine.Random.Range(SoundFrequencyMin, SoundFrequencyMax));
+		GetComponent<AudioSource>().Play();
+		StartCoroutine(EnemySound());
+	}
 	#region Actions
 	public void TurnAround()
 	{ 
@@ -144,6 +157,7 @@ public class EnemyScript : MonoBehaviour
 	#endregion
 #if UNITY_EDITOR
 	public bool ShowGizmos = true;
+
 	private void OnDrawGizmos()
 	{
 		if (!ShowGizmos) return;

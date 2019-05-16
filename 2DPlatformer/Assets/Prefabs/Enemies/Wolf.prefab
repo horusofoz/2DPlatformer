@@ -24,9 +24,10 @@ GameObject:
   - component: {fileID: 61760355526270820}
   - component: {fileID: 95135976114521954}
   - component: {fileID: 114780585025053728}
+  - component: {fileID: 82903427563348016}
   m_Layer: 0
   m_Name: Wolf
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1918861814598992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.06, y: -0.93, z: -0.05859375}
+  m_LocalPosition: {x: 16.64, y: -0.43, z: -0.05859375}
   m_LocalScale: {x: 0.34, y: 0.34, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,6 +90,110 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 8.81, y: 4.47}
   m_EdgeRadius: 0.01
+--- !u!82 &82903427563348016
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1918861814598992}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: cd96bf29538189d4b883efcbdf5f42b4, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.421
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 197
+  DopplerLevel: 0
+  MinDistance: 0.7
+  MaxDistance: 19
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.07534984
+      value: 1
+      inSlope: -1.1153754
+      outSlope: -1.1153754
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.71517956
+      value: 0.46388245
+      inSlope: -2.5961442
+      outSlope: -2.5961442
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.44974476
+    - serializedVersion: 3
+      time: 0.8758545
+      value: 0
+      inSlope: -0.075379945
+      outSlope: -0.075379945
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.60833335
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!95 &95135976114521954
 Animator:
   serializedVersion: 3
@@ -120,6 +225,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 4
   Direction: 1
+  SoundFrequencyMin: 1
+  SoundFrequencyMax: 2
   CheckActions:
   - ActionName: Wall Check
     Position: {x: 1.38, y: -0.67}
