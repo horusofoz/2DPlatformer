@@ -194,8 +194,14 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.tag == "enemy" && isAttacking == false)
         {
-            isDead = true;
-            mc.LoadScene(3);
+            GameManager.instance.TakeHealth(1);
+            int hearts = GameManager.instance.GetHealth();
+            if (hearts <= 0)
+            {
+                isDead = true;
+                mc.LoadScene(3);
+            }
+
         }
 
         if (collider.gameObject.name == "Door Key Parent" && keyCollected == true)
