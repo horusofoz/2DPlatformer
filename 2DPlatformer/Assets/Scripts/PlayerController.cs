@@ -205,6 +205,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.tag == "enemy" && isAttacking == false)
         {
+
             GameManager.instance.TakeHealth(1);
             int hearts = GameManager.instance.GetHealth();
             if (hearts <= 0)
@@ -251,6 +252,12 @@ public class PlayerController : MonoBehaviour
         {
             collision.gameObject.SetActive(false);
             gameManager.AddScore(250);
+        }
+
+        if (collision.gameObject.tag == "killarea")
+        {
+            isDead = true;
+            mc.LoadScene(3);
         }
     }
 }
