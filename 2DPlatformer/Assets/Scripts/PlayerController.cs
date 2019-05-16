@@ -67,8 +67,9 @@ public class PlayerController : MonoBehaviour
     }
 
     [Header("Movement")]
+	public AudioSource WalkSound;
     public float speed;
-    public bool _isAttacking;
+	public bool _isAttacking;
     public bool _isDead;
     private float moveInput;
 	[Header("Ground Checking")]
@@ -79,6 +80,7 @@ public class PlayerController : MonoBehaviour
 	public float jumpForce;
     public float jumpTime;
 	private float jumpTimeCounter;
+	public AudioSource JumpSound;
     public int jumps = 1;
     private int jumpCounter;
     [Header("Attack Variables")]
@@ -113,10 +115,15 @@ public class PlayerController : MonoBehaviour
         if(rb.velocity.x != 0 && isGrounded == true)
         {
             isWalking = true;
+			if (WalkSound.isPlaying == false)
+			{
+				WalkSound.Play();
+			}
         }
         else if (isGrounded == true)
         {
             isWalking = false;
+			WalkSound.Stop();
         }
     }
 
@@ -163,6 +170,10 @@ public class PlayerController : MonoBehaviour
             {
                 jumpCounter = jumps;
             }
+			if (JumpSound && jumpCounter > 0)
+			{
+				JumpSound.Play();
+			}
             jumpCounter--;
             jumpTimeCounter = jumpTime;
         }

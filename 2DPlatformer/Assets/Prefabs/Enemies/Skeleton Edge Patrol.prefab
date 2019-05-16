@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50390845359833872}
   - component: {fileID: 114240599076018192}
   - component: {fileID: 61099939139329102}
+  - component: {fileID: 82764062593054766}
   m_Layer: 0
   m_Name: Skeleton Edge Patrol
   m_TagString: enemy
@@ -38,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332772309001958}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -57.44, y: -2.61, z: 0.65625}
+  m_LocalPosition: {x: -18.038559, y: 0.2887218, z: 0.65625}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,6 +90,110 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.12, y: 0.22}
   m_EdgeRadius: 0.03
+--- !u!82 &82764062593054766
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332772309001958}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ba71955af9e22e745811d6f1086cecab, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.421
+  m_Pitch: 0.5
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 197
+  DopplerLevel: 0
+  MinDistance: 0.7
+  MaxDistance: 19
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.07534984
+      value: 1
+      inSlope: -1.1153754
+      outSlope: -1.1153754
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.71517956
+      value: 0.46388245
+      inSlope: -2.5961442
+      outSlope: -2.5961442
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.44974476
+    - serializedVersion: 3
+      time: 0.8758545
+      value: 0
+      inSlope: -0.075379945
+      outSlope: -0.075379945
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.60833335
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!95 &95745733839015308
 Animator:
   serializedVersion: 3
@@ -120,14 +225,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 2
   Direction: 1
+  SoundFrequencyMin: 1
+  SoundFrequencyMax: 7
   CheckActions:
   - ActionName: Wall Check
     Position: {x: 0.2, y: 0.62}
     Direction: {x: 1, y: 0}
     Distance: 0.5
-    CheckTag: 0
     Tag: 
-    CheckLayer: 1
     LayerToInteract:
       serializedVersion: 2
       m_Bits: 256
@@ -152,9 +257,7 @@ MonoBehaviour:
     Position: {x: 0.33, y: 0.09}
     Direction: {x: 0, y: -1}
     Distance: 0.37
-    CheckTag: 0
     Tag: 
-    CheckLayer: 1
     LayerToInteract:
       serializedVersion: 2
       m_Bits: 256
