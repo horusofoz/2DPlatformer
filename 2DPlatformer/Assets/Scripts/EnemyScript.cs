@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(BoxCollider2D))]
 public class EnemyScript : MonoBehaviour
 {
 	// A class dedicated to ray information and an accompanying action to excecute in-game. 
@@ -77,9 +76,6 @@ public class EnemyScript : MonoBehaviour
 	}
 	private void Start()
 	{
-		// Just to check if the level designer wanted a skeleton that faced left in the beginning
-		// and hadn't set the direction. 
-		Direction = transform.localScale.x < 0 ? Directions.Left : Directions.Right;
 		if (GetComponent<Animator>())
 			GetComponent<Animator>().SetBool("isWalking", true);
 		var audio = GetComponent<AudioSource>();
@@ -138,6 +134,10 @@ public class EnemyScript : MonoBehaviour
 		StartCoroutine(EnemySound());
 	}
 	#region Actions
+	public void SetSpeed(float speed)
+	{
+		Speed = speed;
+	}
 	public void TurnAround()
 	{ 
 		Direction = (Directions)(-(int)Direction);
