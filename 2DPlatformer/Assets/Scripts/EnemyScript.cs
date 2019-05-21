@@ -74,12 +74,13 @@ public class EnemyScript : MonoBehaviour
 	{
 		_rb = GetComponent<Rigidbody2D>();
 	}
-	private void Start()
+	private void OnEnable()
 	{
 		if (GetComponent<Animator>())
 			GetComponent<Animator>().SetBool("isWalking", true);
 		var audio = GetComponent<AudioSource>();
-		if (audio){
+		if (audio)
+		{
 			StartCoroutine(EnemySound());
 		}
 	}

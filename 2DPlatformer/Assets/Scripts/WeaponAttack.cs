@@ -24,7 +24,7 @@ public class WeaponAttack : MonoBehaviour {
             // Score change?
             GameManager.instance.AddScore(100);
             Debug.Log(GameManager.instance.GetScore());
-            Destroy(collider.gameObject);
+			collider.gameObject.SetActive(false);
         }
     }
 }
