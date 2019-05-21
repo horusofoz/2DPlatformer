@@ -66,8 +66,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public bool keyCollected = false;
     [Header("Movement")]
-	public AudioSource WalkSound;
     public float speed;
 	public bool _isAttacking;
     public bool _isDead;
@@ -80,14 +80,16 @@ public class PlayerController : MonoBehaviour
 	public float jumpForce;
     public float jumpTime;
 	private float jumpTimeCounter;
-	public AudioSource JumpSound;
     public int jumps = 1;
     private int jumpCounter;
     [Header("Attack Variables")]
     public float attackInput;
-
-    public bool keyCollected = false;
-
+	[Header("Audio")]
+	public AudioSource WalkSound;
+	public AudioSource JumpSound;
+	// CollectionSound can be renamed and changed so that the crystal pickup and key pickup is diferent. 
+	public AudioSource CollectionSound;
+	public AudioSource DoorOpenSound;
 
     void Start()
     {
@@ -228,9 +230,9 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Finish")
         {
-            Debug.Log("Victory!!");
+            //Debug.Log("Victory!!");
             MenuController mc = new MenuController();
-            mc.LoadScene(2);
+            mc.LoadNextScene();
         }
 
         if(collision.gameObject.name == "Double Jump Item")
@@ -250,6 +252,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "crystal")
         {
+			CollectionSound.Play();
             collision.gameObject.SetActive(false);
             gameManager.AddScore(250);
         }

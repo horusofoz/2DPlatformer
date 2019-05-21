@@ -6,10 +6,11 @@ public class KillAreaFollow : MonoBehaviour {
 
     //attach to main camera
     public Transform player;
+	public float KillElevation = 5f;
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(player.position.x, 5, player.position.z);
+        transform.position = new Vector3(player.position.x, KillElevation, player.position.z);
     }
 }
