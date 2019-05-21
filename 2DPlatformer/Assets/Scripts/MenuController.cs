@@ -5,12 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-	public void LoadScene(int scene)
-	{
-		SceneManager.LoadScene(scene);
-	}
+    public static MenuController instance = null;
 
-	public void Exit()
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void LoadScene(int scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+
+    public void Exit()
 	{
     #if (UNITY_EDITOR)
         UnityEditor.EditorApplication.isPlaying = false;
