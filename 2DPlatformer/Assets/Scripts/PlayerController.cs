@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
 {
 	private Rigidbody2D rb;
     private MenuController mc;
-    private GameManager gameManager;
 
     private bool isWalking
     {
@@ -94,8 +93,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        mc = GameObject.FindObjectOfType<MenuController>();
-        gameManager = GameObject.FindObjectOfType<GameManager>();
+        //mc = GameObject.FindObjectOfType<MenuController>();
+        //gameManager = GameObject.FindObjectOfType<GameManager>();
 
     }
 
@@ -213,7 +212,7 @@ public class PlayerController : MonoBehaviour
             if (hearts <= 0)
             {
                 isDead = true;
-                mc.LoadScene(3);
+                MenuController.instance.LoadScene(3);
             }
 
         }
@@ -222,7 +221,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogError("Destroy Door");
             collider.gameObject.SetActive(false);
-            gameManager.AddScore(2000);
+            GameManager.instance.AddScore(2000);
         }
     }
 
@@ -230,37 +229,35 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Finish")
         {
-            //Debug.Log("Victory!!");
-            MenuController mc = new MenuController();
-            mc.LoadNextScene();
+            MenuController.instance.LoadNextScene();
         }
 
         if(collision.gameObject.name == "Double Jump Item")
         {
             Debug.Log("Unlocked Double Jump!");
-            gameManager.SetDoubleJumpStatus(true);
+            GameManager.instance.SetDoubleJumpStatus(true);
             collision.gameObject.SetActive(false);
-            gameManager.AddScore(1000);
+            GameManager.instance.AddScore(1000);
         }
         
         if (collision.gameObject.tag == "keyGold")
         {
             collision.gameObject.SetActive(false);
-            gameManager.SetKeyStatus(true);
-            gameManager.AddScore(2000);
+            GameManager.instance.SetKeyStatus(true);
+            GameManager.instance.AddScore(2000);
         }
 
         if (collision.gameObject.tag == "crystal")
         {
 			CollectionSound.Play();
             collision.gameObject.SetActive(false);
-            gameManager.AddScore(250);
+            GameManager.instance.AddScore(250);
         }
 
         if (collision.gameObject.tag == "killarea")
         {
             isDead = true;
-            mc.LoadScene(3);
+            MenuController.instance.LoadScene(3);
         }
     }
 }

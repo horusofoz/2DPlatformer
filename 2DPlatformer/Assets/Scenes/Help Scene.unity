@@ -716,7 +716,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1594738356}
+      - m_Target: {fileID: 114602352740548016, guid: 3faf07b689c728944bc919718bce3cfb,
+          type: 2}
         m_MethodName: LoadScene
         m_Mode: 3
         m_Arguments:
@@ -1110,12 +1111,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1556086911}
   m_CullTransparentMesh: 0
---- !u!114 &1594738356 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114602352740548016, guid: 3faf07b689c728944bc919718bce3cfb,
-    type: 2}
-  m_PrefabInternal: {fileID: 541476104}
-  m_Script: {fileID: 11500000, guid: f3600c6bc3424a2429b49ee59e143201, type: 3}
 --- !u!1 &1861445501
 GameObject:
   m_ObjectHideFlags: 0
