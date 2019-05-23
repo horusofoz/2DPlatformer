@@ -26,10 +26,7 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
-        score = 0;
         health = 3;
-        keyCollected = false;
-        doubleJumpEnabled = false;
     }
 
     public void AddScore(int points)

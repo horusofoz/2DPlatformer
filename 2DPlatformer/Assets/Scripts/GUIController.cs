@@ -7,48 +7,52 @@ using TMPro;
 public class GUIController : MonoBehaviour {
 
     private TMP_Text scoreLabel;
-    private Image heart1, heart2, heart3;
+    private GameObject heart1, heart2, heart3;
 
     
 
     // Use this for initialization
     void Start () {
         scoreLabel = GameObject.Find("Score Label").GetComponent<TMP_Text>();
-        heart1 = GameObject.Find("Heart1").GetComponent<Image>();
-        heart2 = GameObject.Find("Heart2").GetComponent<Image>();
-        heart3 = GameObject.Find("Heart3").GetComponent<Image>();
-        heart1.enabled = true;
-        heart2.enabled = true;
-        heart3.enabled = true;
+
+
+
+
+        heart1 = GameObject.Find("Heart1");
+        heart2 = GameObject.Find("Heart2");
+        heart3 = GameObject.Find("Heart3");
+        heart1.SetActive(true);
+        heart2.SetActive(true);
+        heart3.SetActive(true);
     }
 	
 	// Update is called once per frame
 	void Update () {
         scoreLabel.SetText(GameManager.instance.GetScore().ToString());
         int health = GameManager.instance.GetHealth();
-        if (health < 3)
+
+        switch (health)
         {
-            heart3.enabled = false;
-            if (health < 2)
-            {
-                heart2.enabled = false;
-                if (health < 1)
-                {
-                    heart1.enabled = false;
-                }
-                else
-                {
-                    heart1.enabled = true;
-                }
-            }
-            else
-            {
-                heart2.enabled = true;
-            }
-        }
-        else
-        {
-            heart3.enabled = true;
+            case 1:
+                heart1.SetActive(true);
+                heart2.SetActive(false);
+                heart3.SetActive(false);
+                break;
+            case 2:
+                heart1.SetActive(true);
+                heart2.SetActive(true);
+                heart3.SetActive(false);
+                break;
+            case 3:
+                heart1.SetActive(true);
+                heart2.SetActive(true);
+                heart3.SetActive(true);
+                break;
+            default:
+                heart1.SetActive(false);
+                heart2.SetActive(false);
+                heart3.SetActive(false);
+                break;
         }
     }
 }
