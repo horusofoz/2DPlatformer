@@ -82,4 +82,13 @@ public class GameManager : MonoBehaviour {
             keyCollected = status;
             FindObjectOfType<PlayerController>().keyCollected = status;
     }
+
+    public void StartGame()
+    {
+        score = 0;
+        health = 3;
+        keyCollected = false;
+        doubleJumpEnabled = false;
+        MenuController.instance.LoadScene(1);
+    }
 }

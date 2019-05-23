@@ -658,10 +658,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114602352740548016, guid: 3faf07b689c728944bc919718bce3cfb,
+      - m_Target: {fileID: 114177246628482656, guid: 4598d77de62a45e49b2abc11b545c39e,
           type: 2}
-        m_MethodName: LoadScene
-        m_Mode: 3
+        m_MethodName: StartGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
