@@ -8,6 +8,7 @@ TagManager:
   - keyGold
   - crystal
   - killarea
+  - destructible
   layers:
   - Default
   - TransparentFX

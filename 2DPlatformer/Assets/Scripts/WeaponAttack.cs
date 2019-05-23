@@ -26,5 +26,9 @@ public class WeaponAttack : MonoBehaviour {
             Debug.Log(GameManager.instance.GetScore());
 			collider.gameObject.SetActive(false);
         }
+        else if (collider.gameObject.tag == "destructible")
+        {
+            collider.gameObject.SetActive(false);
+        }
     }
 }
