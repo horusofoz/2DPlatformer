@@ -703,13 +703,13 @@ Transform:
   - {fileID: 1427773103}
   - {fileID: 1863258905}
   - {fileID: 847444383}
+  - {fileID: 2009198333}
   - {fileID: 1248091588}
+  - {fileID: 555729106}
   - {fileID: 1423512508}
+  - {fileID: 401955509}
   - {fileID: 23432158}
   - {fileID: 196179360}
-  - {fileID: 2009198333}
-  - {fileID: 555729106}
-  - {fileID: 401955509}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1559,6 +1559,11 @@ Prefab:
         type: 2}
       propertyPath: MinDistance
       value: 1.1573106
+      objectReference: {fileID: 0}
+    - target: {fileID: 114790356849274862, guid: 8300d8af93fd44649af43a734d79e28f,
+        type: 2}
+      propertyPath: jumps
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8300d8af93fd44649af43a734d79e28f, type: 2}

@@ -257,7 +257,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "killarea")
         {
             isDead = true;
-            MenuController.instance.LoadScene(3);
+            MenuController.instance.LoadScene(4);
         }
     }
 }
