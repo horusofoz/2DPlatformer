@@ -229,7 +229,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "You are Alistair. An aged knight suffering dimentia and trying to make
+  m_text: "You are Alistair. An aged knight suffering dementia and trying to make
     it back to a home you can't really remember.\r\n\nUnable to even jump without
     really pressing, best hope you remember how to swing your sword before it's too
     late."
