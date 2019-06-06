@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour {
     private int health;
     private bool keyCollected;
     private bool doubleJumpEnabled;
+    public bool attackEnabled;
+
     private void Awake()
     {
         if(instance == null)
@@ -74,6 +76,11 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void SetAttackStatus(bool status)
+    {
+        attackEnabled = status;
+    }
+
     public void SetKeyStatus(bool status)
     {
             keyCollected = status;
@@ -86,6 +93,7 @@ public class GameManager : MonoBehaviour {
         health = 3;
         keyCollected = false;
         doubleJumpEnabled = false;
+        attackEnabled = false;
         MenuController.instance.LoadScene(1);
     }
 }

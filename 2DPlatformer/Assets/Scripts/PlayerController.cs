@@ -189,12 +189,15 @@ public class PlayerController : MonoBehaviour
 
     private void Attack()
     {
-        // If the attack button isn't down or the user is already attacking, this function does nothing, return
-        if (Input.GetAxisRaw("Fire1") != 1 || isAttacking == true)
+        if(GameManager.instance.attackEnabled == true)
         {
-            return;
+            // If the attack button isn't down or the user is already attacking, this function does nothing, return
+            if (Input.GetAxisRaw("Fire1") != 1 || isAttacking == true)
+            {
+                return;
+            }
+            isAttacking = true;
         }
-        isAttacking = true;
     }
 
     private void CheckIsPlayerGrounded()
