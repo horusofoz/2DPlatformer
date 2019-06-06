@@ -215,7 +215,7 @@ public class PlayerController : MonoBehaviour
             if (hearts <= 0)
             {
                 isDead = true;
-                MenuController.instance.LoadScene(3);
+                MenuController.instance.LoadScene(5);
             }
 
         }
@@ -235,7 +235,15 @@ public class PlayerController : MonoBehaviour
             MenuController.instance.LoadNextScene();
         }
 
-        if(collision.gameObject.name == "Double Jump Item")
+        if (collision.gameObject.name == "Attack Item")
+        {
+            Debug.Log("Unlocked Attack!");
+            GameManager.instance.SetAttackStatus(true);
+            collision.gameObject.SetActive(false);
+            GameManager.instance.AddScore(1000);
+        }
+
+        if (collision.gameObject.name == "Double Jump Item")
         {
             Debug.Log("Unlocked Double Jump!");
             GameManager.instance.SetDoubleJumpStatus(true);
@@ -260,7 +268,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "killarea")
         {
             isDead = true;
-            MenuController.instance.LoadScene(4);
+            MenuController.instance.LoadScene(5);
         }
     }
 }
